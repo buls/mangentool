@@ -1,0 +1,92 @@
+[
+  {
+    "term": "f", 
+    "file_format": ".mp4", 
+    "term_week": "01", 
+    "vclass": "p1", 
+    "lesson_part": "a", 
+    "lesson": "01", 
+    "subject": "bsc"
+  }, 
+  {
+    "term": "f", 
+    "file_format": ".mp4", 
+    "term_week": "01", 
+    "vclass": "p1", 
+    "lesson_part": "a", 
+    "lesson": "01", 
+    "subject": "eng"
+  }, 
+  {
+    "term": "f", 
+    "file_format": ".mp4", 
+    "term_week": "01", 
+    "vclass": "p1", 
+    "lesson_part": "b", 
+    "lesson": "01", 
+    "subject": "eng"
+  }, 
+  {
+    "term": "f", 
+    "file_format": ".mp4", 
+    "term_week": "01", 
+    "vclass": "p1", 
+    "lesson_part": "c", 
+    "lesson": "01", 
+    "subject": "eng"
+  }, 
+  {
+    "term": "f", 
+    "file_format": ".mp4", 
+    "term_week": "01", 
+    "vclass": "p1", 
+    "lesson_part": "a", 
+    "lesson": "01", 
+    "subject": "mth"
+  }, 
+  {
+    "term": "f", 
+    "file_format": ".mp4", 
+    "term_week": "01", 
+    "vclass": "p1", 
+    "lesson_part": "b", 
+    "lesson": "01", 
+    "subject": "mth"
+  }, 
+  {
+    "term": "f", 
+    "file_format": ".mp4", 
+    "term_week": "01", 
+    "vclass": "p1", 
+    "lesson_part": "c", 
+    "lesson": "01", 
+    "subject": "mth"
+  }, 
+  {
+    "term": "f", 
+    "file_format": ".mp4", 
+    "term_week": "01", 
+    "vclass": "p1", 
+    "lesson_part": "d", 
+    "lesson": "01", 
+    "subject": "mth"
+  }, 
+  {
+    "term": "f", 
+    "file_format": ".mp4", 
+    "term_week": "01", 
+    "vclass": "p1", 
+    "lesson_part": "e", 
+    "lesson": "01", 
+    "subject": "mth"
+  }, 
+  {
+    "term": "f", 
+    "file_format": ".mp4", 
+    "term_week": "01", 
+    "vclass": "p1", 
+    "lesson_part": "e", 
+    "lesson": "02", 
+    "subject": "mth"
+  }
+]
