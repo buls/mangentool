@@ -43,7 +43,7 @@ def rename_to_lower(originalfilename):
         print "...OK"
         return True
     else:
-        print "FAILED"
+        print "...FAILED"
         return False
 '''converts filenames to lowercase'''
 
