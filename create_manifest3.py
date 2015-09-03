@@ -52,7 +52,7 @@ file_format = ".mp4"
 video_files = []    #list containing names of videos
 invalid_files = []  #list containing invalid file names
 final_list = []
-oldfilename = ""
+
 
 files = os.listdir( os.getcwd() )
 
@@ -60,7 +60,6 @@ for filename in files:
     if filename.lower().endswith(file_format):
         if filename_is_valid(filename.lower().rstrip(file_format)):
             if filename != filename.lower():
-                oldfilename = filename
                 rename_to_lower(filename)
             video = filename.lower().rstrip(file_format).split("_")
             vidObjects = Video(video, file_format)
