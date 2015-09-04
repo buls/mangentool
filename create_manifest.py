@@ -88,4 +88,4 @@ else:
     for fname in invalid_files:
         print fname
 
-raw_input("\n press any key to end...")
+raw_input("\n press ENTER to end...")
