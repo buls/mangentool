@@ -1,5 +1,5 @@
 '''
-Looks in the current directory for .mp4 video files,
+Reads the current directory for .mp4 video files,
     Checks if each filename meets the naming convention,
         Then renames files to lowercase if not already so,
             Then creates a JSON array of all the .mp4 videos as JSON objects and outputs to a manifest.iq file
@@ -10,6 +10,7 @@ import re
 
 
 class Video(object):
+        #NEED TO ADD: use dictionary instead of list so you can guaranty the position of each attribute, lists are not always ordered the way data is entered
     def __init__(self, video, file_format):
         self.vclass = video[0]
         self.subject = video[1]
@@ -38,8 +39,8 @@ def filename_is_valid(filename):
 
 
 def rename_to_lower(originalfilename):
-    #if folder already contains originalfilename.lower(), return error a file with that name already exists
-    print "renaming " + "'" + originalfilename + "'" + " to " + originalfilename.lower(),
+    #NEED TO ADD: if folder already contains originalfilename.lower(), return error a file with that name already exists
+    print "\nrenaming " + "'" + originalfilename + "'" + " to " + originalfilename.lower(),
     os.rename(originalfilename, originalfilename.lower())
 
     #check success
@@ -83,6 +84,8 @@ f.close()
 if not invalid_files:
     print "\n" + "completed"
 else:
-    print "\n\nFAILED.... \n\nThe following video files do not meet the required naming convention, please correct and rerun this program"
+    print "\n\nFAILED.... \n\nThe following video files do not meet the required naming convention, \nplease correct and rerun this program\n"
     for fname in invalid_files:
         print fname
+
+raw_input("\n press any key to end...")
