@@ -16,7 +16,7 @@ week: This denotes the week in a term
 possible values are 01, 02, 03, 04, 05, ..., 13
 
 lesson: This denotes a subject's lesson
-possible values are 01, 02, 03, ..., 45
+possible values are 001, 002, 003, ..., 045
 
 part: This denotes the sub-part of a lesson. Lessons would be made up of multiple videos so this
 attribute shows where a specific video falls as part of a lesson
