@@ -75,7 +75,6 @@ for filename in files:
                 rename_to_lower(filename)
             video = filename.lower().rstrip(file_format).split("_")         
             vidObjects = Video(video, file_format)
-            print "the video print: ", vidObjects
             video_files.append(vidObjects)
         else:
             invalid_files.append(filename)
