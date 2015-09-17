@@ -8,26 +8,32 @@ import os
 import json
 import re
 
+"""
+file name convention: class(p1-p3)_subject(mth,eng,bsc)_term(f, s, t)_theme(00)_topic(00)_lesson(000)_part(a-z).mp4
+example: p1_mth_f_01_01_001_a.mp4
+"""
+
 
 class Video(object):
-        #NEED TO ADD: use dictionary instead of list so you can guaranty the position of each attribute, lists are not always ordered the way data is entered
     def __init__(self, video, file_format):
         self.vclass = video[0]
         self.subject = video[1]
         self.term = video[2]
-        self.term_week = video[3]
-        self.lesson = video[4]
-        self.lesson_part = video[5]
+        self.theme =  video[3]
+        self.topic = video[4]
+        self.lesson = video[5]
+        self.lesson_part = video[6]
         self.file_format = file_format
 
     def __str__(self):
-        return self.vclass+"\t"+ self.subject+"\t"+ self.term+"\t"+ self.term_week+"\t"+ self.lesson+"\t"+ self.lesson_part+"\t"+ self.file_format
-'''The video class represents each video file with it's different attributes'''
+        return self.vclass+"\t"+ self.subject+"\t"+ self.term+"\t"+ self.theme+"\t"+ self.topic+"\t"+ \
+               self.lesson+"\t"+ self.lesson_part+"\t"+ self.file_format
+'''The video class represents each video file and it's different attributes'''
 
 
 def filename_is_valid(filename):
-    name_pattern = re.compile("^p[1-3]_(mth|eng|bsc)_(f|s|t)_[0-9][0-9]_[0-9][0-9][0-9]_[a-z]$") #eg: p1_mth_f_01_001_a
-        #"Class(str), Subject(str: ), Term(char and alphabet), Week(int), Lesson(int3digits), Part(char and alphabet"
+    name_pattern = re.compile("^p[1-3]_(mth|eng|bsc)_(f|s|t)_[0-9][0-9]_[0-9][0-9]_[0-9][0-9][0-9]_[a-z]$") #eg: p1_mth_f_01_01_001_a
+        #"Class(str), Subject(str: ), Term(char and alphabet), Theme(2digits), Topic(2digits), Lesson(3digits) Part(a-z)"
 
     if name_pattern.match(filename):
         #print name + " is in a valid format"
@@ -35,7 +41,7 @@ def filename_is_valid(filename):
     else:
         #print name + " is in an INVALID format"
         return False
-'''the function checks that file name matches the format p1_mth_f_01_001_a'''
+'''the function checks that file name matches the format p1_mth_f_01_01_001_a'''
 
 
 def rename_to_lower(originalfilename):
@@ -67,13 +73,14 @@ for filename in files:
         if filename_is_valid(filename.lower().rstrip(file_format)):
             if filename != filename.lower():
                 rename_to_lower(filename)
-            video = filename.lower().rstrip(file_format).split("_")
+            video = filename.lower().rstrip(file_format).split("_")         
             vidObjects = Video(video, file_format)
+            print "the video print: ", vidObjects
             video_files.append(vidObjects)
         else:
             invalid_files.append(filename)
 
-#print "Class\tSubject\tTerm\tWeek\tLesson\tPart\tFormat"
+#print "Class\tSubject\tTerm\tTheme\tTopic\tLesson\tPart\tFormat"
 for thefiles in video_files:
     final_list.append(vars(thefiles))
 
