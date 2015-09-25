@@ -4,14 +4,12 @@ Reads the current directory for .mp4 video files,
         Then renames files to lowercase if not already so,
             Then creates a JSON array of all the .mp4 videos as JSON objects and outputs to a manifest.iq file
 '''
+
+#ADD: gui, specify directory
+
 import os
 import json
 import re
-
-"""
-file name convention: class(p1-p3)_subject(mth,eng,bsc)_term(f, s, t)_theme(00)_topic(00)_lesson(000)_part(a-z).mp4
-example: p1_mth_f_01_01_001_a.mp4
-"""
 
 
 class Video(object):
@@ -23,25 +21,32 @@ class Video(object):
         self.topic = video[4]
         self.lesson = video[5]
         self.lesson_part = video[6]
+        self.videotitle = video[7]
         self.file_format = file_format
 
     def __str__(self):
         return self.vclass+"\t"+ self.subject+"\t"+ self.term+"\t"+ self.theme+"\t"+ self.topic+"\t"+ \
-               self.lesson+"\t"+ self.lesson_part+"\t"+ self.file_format
+               self.lesson+"\t"+ self.lesson_part+"\t"+ self.videotitle+"\t"+ self.file_format
 '''The video class represents each video file and it's different attributes'''
+
+namingConvention = """Naming convention: class(p1-p3)_subject(mth,eng,bsc)_term(f,s,t)_theme(00)_topic(00)_lesson(000)\
+_part(a-z)_videotitle(1 to 50 characters not begining with a space).mp4
+\tExample: p1_mth_f_01_01_001_a_counting.mp4\n"""
+
+file_format = ".mp4"
+failedErrMsg = "FAILED.... \n\nThe folder contains " +file_format+ " files that do not meet the naming convention, \nplease correct and try again.\n"
 
 
 def filename_is_valid(filename):
-    name_pattern = re.compile("^p[1-3]_(mth|eng|bsc)_(f|s|t)_[0-9][0-9]_[0-9][0-9]_[0-9][0-9][0-9]_[a-z]$") #eg: p1_mth_f_01_01_001_a
-        #"Class(str), Subject(str: ), Term(char and alphabet), Theme(2digits), Topic(2digits), Lesson(3digits) Part(a-z)"
-
+    name_pattern = re.compile("^p[1-3]_(mth|eng|bsc)_(f|s|t)_[0-9][0-9]_[0-9][0-9]_[0-9][0-9][0-9]_[a-z]_\S.{0,49}$")
+        
     if name_pattern.match(filename):
         #print name + " is in a valid format"
         return True
     else:
         #print name + " is in an INVALID format"
         return False
-'''the function checks that file name matches the format p1_mth_f_01_01_001_a'''
+"""checks that the file name matches the naming convention:"""
 
 
 def rename_to_lower(originalfilename):
@@ -57,10 +62,9 @@ def rename_to_lower(originalfilename):
     else:
         print "...FAILED"
         return False
-'''converts filenames to lowercase'''
+"""converts filenames to lowercase"""
 
 
-file_format = ".mp4"
 video_files = []    #list containing names of videos
 invalid_files = []  #list containing invalid file names
 final_list = []
@@ -90,8 +94,8 @@ f.close()
 if not invalid_files:
     print "\n" + "completed"
 else:
-    print "\n\nFAILED.... \n\nThe following video files do not meet the required naming convention, \nplease correct and rerun this program\n"
+    print failedErrMsg, "\n", namingConvention, "\n\tINVALID FILES:"
     for fname in invalid_files:
         print fname
 
-raw_input("\n press ENTER to end...")
+raw_input("\npress ENTER to end...")
