@@ -25,8 +25,8 @@ class Video(object):
         self.file_format = file_format
 
     def __str__(self):
-        return self.vclass+"\t"+ self.subject+"\t"+ self.term+"\t"+ self.theme+"\t"+ self.topic+"\t"+ \
-               self.lesson+"\t"+ self.lesson_part+"\t"+ self.videotitle+"\t"+ self.file_format
+        return self.vclass+"_"+ self.subject+"_"+ self.term+"_"+ self.theme+"_"+ self.topic+"_"+ \
+               self.lesson+"_"+ self.lesson_part+"_"+ self.videotitle+ self.file_format
 '''The video class represents each video file and it's different attributes'''
 
 namingConvention = """Naming convention: class(p1-p3)_subject(mth,eng,bsc)_term(f,s,t)_theme(00)_topic(00)_lesson(000)\
@@ -38,7 +38,7 @@ failedErrMsg = "FAILED.... \n\nThe folder contains " +file_format+ " files that 
 
 
 def filename_is_valid(filename):
-    name_pattern = re.compile("^p[1-3]_(mth|eng|bsc)_(f|s|t)_[0-9][0-9]_[0-9][0-9]_[0-9][0-9][0-9]_[a-z]_\S.{0,49}$")
+    name_pattern = re.compile(u"^p[1-3]_(mth|eng|bsc)_(f|s|t)_[0-9][0-9]_[0-9][0-9]_[0-9][0-9][0-9]_[a-z]_\S.{0,49}$")
         
     if name_pattern.match(filename):
         #print name + " is in a valid format"
@@ -74,10 +74,11 @@ files = os.listdir( os.getcwd() )
 
 for filename in files:
     if filename.lower().endswith(file_format):
-        if filename_is_valid(filename.lower().rstrip(file_format)):
+        if filename_is_valid(filename.lower()[:-4]):
             if filename != filename.lower():
                 rename_to_lower(filename)
-            video = filename.lower().rstrip(file_format).split("_")         
+            fname = filename.lower()
+            video = filename.lower()[:-4].split("_")
             vidObjects = Video(video, file_format)
             video_files.append(vidObjects)
         else:
