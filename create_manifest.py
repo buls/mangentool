@@ -5,8 +5,6 @@ Reads the current directory for .mp4 video files,
             Then creates a JSON array of all the .mp4 videos as JSON objects and outputs to a manifest.iq file
 '''
 
-#ADD: gui, specify directory
-
 import os
 import json
 import re
@@ -28,6 +26,7 @@ class Video(object):
         return self.vclass+"_"+ self.subject+"_"+ self.term+"_"+ self.theme+"_"+ self.topic+"_"+ \
                self.lesson+"_"+ self.lesson_part+"_"+ self.videotitle+ self.file_format
 '''The video class represents each video file and it's different attributes'''
+
 
 namingConvention = """Naming convention: class(p1-p3)_subject(mth,eng,bsc)_term(f,s,t)_theme(00)_topic(00)_lesson(000)\
 _part(a-z)_videotitle(1 to 50 characters not begining with a space).mp4
@@ -69,8 +68,9 @@ video_files = []    #list containing names of videos
 invalid_files = []  #list containing invalid file names
 final_list = []
 
+vidSource = raw_input("Enter the path to the video(s): ")
 
-files = os.listdir( os.getcwd() )
+files = os.listdir( vidSource )
 
 for filename in files:
     if filename.lower().endswith(file_format):
@@ -91,6 +91,8 @@ for thefiles in video_files:
 f = open('manifest.iq', 'w')
 json.dump(final_list, f, indent=2)
 f.close()
+
+print "\n'manifest.iq' generated and saved to {0}".format(os.getcwd())
 
 if not invalid_files:
     print "\n" + "completed"
