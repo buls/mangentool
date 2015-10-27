@@ -2,12 +2,16 @@
 Reads the current directory for .mp4 video files,
     Checks if each filename meets the naming convention,
         Then renames files to lowercase if not already so,
-            Then creates a JSON array of all the .mp4 videos as JSON objects and outputs to a manifest.iq file
+            Then creates a JSON array of all the .mp4 videos as JSON objects,
+            outputs to a manifest.iq file and saves it to the video source.
 '''
 
 import os
 import json
 import re
+
+vidSource = raw_input( "Enter the path to the video(s): " )
+vidSource = vidSource + "/"
 
 
 class Video(object):
@@ -40,26 +44,26 @@ def filename_is_valid(filename):
     name_pattern = re.compile(u"^p[1-3]_(mth|eng|bsc)_(f|s|t)_[0-9][0-9]_[0-9][0-9]_[0-9][0-9][0-9]_[a-z]_\S.{0,49}$")
         
     if name_pattern.match(filename):
-        #print name + " is in a valid format"
+        #print(name + " is in a valid format")
         return True
     else:
-        #print name + " is in an INVALID format"
+        #print(name + " is in an INVALID format")
         return False
 """checks that the file name matches the naming convention:"""
 
 
 def rename_to_lower(originalfilename):
     #NEED TO ADD: if folder already contains originalfilename.lower(), return error a file with that name already exists
-    print "\nrenaming " + "'" + originalfilename + "'" + " to " + originalfilename.lower(),
-    os.rename(originalfilename, originalfilename.lower())
+    print("\nrenaming " + "'" + originalfilename + "'" + " to " + originalfilename.lower())
+    os.rename(vidSource+originalfilename, (vidSource+originalfilename).lower())
 
     #check success
-    files = os.listdir( os.getcwd() )
+    files = os.listdir( vidSource )
     if originalfilename.lower() in files:
-        print "...OK"
+        print("...OK")
         return True
     else:
-        print "...FAILED"
+        print("...FAILED")
         return False
 """converts filenames to lowercase"""
 
@@ -68,10 +72,9 @@ video_files = []    #list containing names of videos
 invalid_files = []  #list containing invalid file names
 final_list = []
 
-vidSource = raw_input("Enter the path to the video(s): ")
+
 
 files = os.listdir( vidSource )
-
 for filename in files:
     if filename.lower().endswith(file_format):
         if filename_is_valid(filename.lower()[:-4]):
@@ -84,21 +87,19 @@ for filename in files:
         else:
             invalid_files.append(filename)
 
-#print "Class\tSubject\tTerm\tTheme\tTopic\tLesson\tPart\tFormat"
 for thefiles in video_files:
     final_list.append(vars(thefiles))
 
-f = open('manifest.iq', 'w')
-json.dump(final_list, f, indent=2)
-f.close()
-
-print "\n'manifest.iq' generated and saved to {0}".format(os.getcwd())
-
 if not invalid_files:
-    print "\n" + "completed"
+    f = open( (vidSource+'manifest.iq'), 'w')
+    json.dump(final_list, f, indent=2)
+    f.close()
+
+    print("\n'manifest.iq' generated and saved to {0}".format( vidSource ))
+    print("\n" + "completed")
 else:
-    print failedErrMsg, "\n", namingConvention, "\n\tINVALID FILES:"
+    print(failedErrMsg, "\n", namingConvention, "\n\tINVALID FILES:")
     for fname in invalid_files:
-        print fname
+        print(fname)
 
 raw_input("\npress ENTER to end...")
